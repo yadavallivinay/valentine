@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Arial", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #f9c5d1, #fbdce2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 22px;
+      width: 330px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 2;
+    }
+
+    .emoji {
+      font-size: 64px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 90px;
+    }
+
+    button {
+      border: none;
+      padding: 14px 30px;
+      border-radius: 40px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.05s ease;
+    }
+
+    #yesBtn {
+      background: #ff3b7f;
+      color: white;
+    }
+
+    #noBtn {
+      background: #eee;
+      position: absolute;
+      right: 0;
+    }
+
+    .hint {
+      font-size: 12px;
+      margin-top: 12px;
+      color: #777;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      color: #ff3b7f;
+      font-size: 20px;
+      animation: float 5s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.4);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <div class="emoji">🐱💗</div>
+    <h1><span id="name">DUMBUUUUUU</span>, will you be my Valentine?</h1>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+
+    <div class="hint">"No" seems a bit shy 😈</div>
+  </div>
+
+  <!-- Sound -->
+  <audio id="popSound">
+    <source src="https://www.soundjay.com/buttons/sounds/button-16.mp3">
+  </audio>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const sound = document.getElementById("popSound");
+
+    let yesSize = 18;
+
+    function moveNoButton() {
+      sound.play();
+
+      const x = Math.random() * 400 - 200;
+      const y = Math.random() * 200 - 100;
+
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+      yesSize += 6;
+      yesBtn.style.fontSize = yesSize + "px";
+      yesBtn.style.padding = "18px " + (yesSize + 25) + "px";
+    }
+
+    noBtn.addEventListener("mouseover", moveNoButton);
+    noBtn.addEventListener("touchstart", moveNoButton);
+
+    yesBtn.addEventListener("click", () => {
+      document.body.innerHTML = `
+        <div style="
+          height:100vh;
+          background:linear-gradient(135deg,#ffafbd,#ffc3a0);
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          text-align:center;
+          font-family:Arial;
+          padding:20px;">
+          <h1 style="font-size:36px;">
+            💖 OHOOO!! 💖 <br><br>
+            Best Valentine ever 🥰
+          </h1>
+        </div>
+      `;
+    });
+
+    // Floating hearts generator
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 15 + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }, 300);
+  </script>
+
+</body>
+</html>
